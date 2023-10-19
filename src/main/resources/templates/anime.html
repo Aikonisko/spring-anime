@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Anime CRUD</title>
+</head>
+<body>
+<h1>Anime CRUD Operations</h1>
+
+<h2>Get All Anime</h2>
+<a th:href="@{/anime}" th:method="get">Get All Anime</a>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Genre</th>
+    </tr>
+    <tr th:each="anime : ${allAnime}">
+        <td th:text="${anime.id}"></td>
+        <td th:text="${anime.title}"></td>
+        <td th:text="${anime.genre}"></td>
+    </tr>
+</table>
+<div th:if="${animeById}">
+    <p th:text="'ID: ' + ${animeById.id}"></p>
+    <p th:text="'Title: ' + ${animeById.title}"></p>
+    <p th:text="'Genre: ' + ${animeById.genre}"></p>
+</div>
+
+<h2>Create Anime</h2>
+<form th:action="@{/anime}" method="post">
+    <input type="text" name="title" placeholder="Title">
+    <input type="text" name="genre" placeholder="Genre">
+    <button type="submit">Create Anime</button>
+</form>
+
+<h2>Update Anime by ID</h2>
+<form th:action="@{/anime/{id}}" method="put">
+    <input type="hidden" name="_method" value="put"> <!-- This hidden field indicates the intended HTTP method -->
+    <input type="number" name="id" placeholder="Enter Anime ID">
+    <input type="text" name="title" placeholder="Title">
+    <input type="text" name="genre" placeholder="Genre">
+    <button type="submit">Update Anime</button>
+</form>
+
+<h2>Delete Anime by ID</h2>
+<form th:action="@{/anime/{id}}" method="delete">
+    <input type="hidden" name="_method" value="delete"> <!-- This hidden field indicates the intended HTTP method -->
+    <input type="number" name="id" placeholder="Enter Anime ID">
+    <button type="submit">Delete Anime</button>
+</form>
+
+</body>
+</html>
